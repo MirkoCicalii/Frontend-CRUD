@@ -83,9 +83,39 @@ $(document).ready(function () {
 
   });
 
+  //modifica
+  $("body").on("click", ".btn-mod", function () {
+
+    var modal= $('#exampleModal');
+    modal.modal("show");
+
+    var td = $(this).parent("td");
+    console.log(td);
+    var id = td.data("id");
+    for (var i = 0; i < dati.length; i++) {
+      if (dati[i].id == id) {
+        var firstName = dati[i].firstName;
+        var lastName = dati[i].lastName;
+        var gender = dati[i].gender;
+        break;
+      }
+    }
+
+    $('#firstName').val(firstName);
 
 
 
+      /*
+    var modifica = {
+      "id": id,
+      "firstName": firstName,
+      "lastName": lastname,
+      "gender": gender,
+    }
+    console.log(modifica);
+    */
+
+  });
 });
 
 
@@ -98,11 +128,12 @@ function displayTable() {
     r += '<td>' + value.firstName + '</td>';
     r += '<td>' + value.lastName + '</td>';
     r += '<td data-id=' + value.id + '> <button type="button" class="btn btn-danger btn-delete">Elimina</button>' + '</td>';
+    r += '<td data-id=' + value.id + '> <button type="button" class="btn btn-success btn-mod">Modifica</button>'+'</td>';
     r += '<tr>' + '</tr>';
   });
   $("tbody").html(r);
 }
-
+ 
 
 
 
