@@ -1,4 +1,4 @@
-var dati =[
+var dati = [
   {
     "id": 10001,
     "birthDate": "1953-09-01",
@@ -45,21 +45,62 @@ var dati =[
 
 var nexId = 10006;
 
-$(document).ready(function(){
+$(document).ready(function () {
+
+  $("body").on("click", ".btn-delete", function () {
+    var td = $(this).parent("td");
+    var id = td.data("id");
+    for (var i = 0; i < dati.length; i++) {
+      if (dati[i].id == id) {
+        dati.splice(i, 1);
+        break;
+      }
+    }
+    displayTable();
+  })
   displayTable();
+
+
+  $("body").on("click", ".btn-add", function () {
+    var firstName = $('#firstName').val();
+    console.log(firstName);
+    var lastname = $('#lastname').val();
+    console.log(lastname);
+    var nuovo = {
+      "id": nexId,
+      "firstName": firstName,
+      "lastName": lastname,
+      "gender": "M",
+    }
+    dati.push(nuovo);
+    displayTable();
+    nexId++;
+
+    //chiusura dopo aggiungi
+    var modal= $('#exampleModal');
+    modal.modal("hide");
+
+
+  });
+
+
+
+
 });
 
-function displayTable(){
-  var r ='';
-  $.each(dati,function(id,value){
+
+
+function displayTable() {
+  var r = '';
+  $.each(dati, function (id, value) {
     r += '<tr>';
-    r += '<td>' + value.id +'</td>';
-    r += '<td>' + value.firstName +'</td>';
-    r += '<td>' + value.lastName +'</td>';
-    r += '<td>' + '<button type="button" class="btn btn-danger">Elimina</button>' + '</td>';
+    r += '<td>' + value.id + '</td>';
+    r += '<td>' + value.firstName + '</td>';
+    r += '<td>' + value.lastName + '</td>';
+    r += '<td data-id=' + value.id + '> <button type="button" class="btn btn-danger btn-delete">Elimina</button>' + '</td>';
     r += '<tr>' + '</tr>';
   });
-  $("tbody").append(r);
+  $("tbody").html(r);
 }
 
 
